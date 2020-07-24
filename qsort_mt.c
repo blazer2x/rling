@@ -201,7 +201,7 @@ void
 qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, size_t maxthreads, size_t forkelem)
 {
 
-	printf("Press Any Key to Continue threads \n");
+	printf("Press Any Key to Continue threads size %zu threads %zu %form\n",n,maxthreads,forkelem);
 getchar();
 	int ncpu;
 	struct qsort *qs;
