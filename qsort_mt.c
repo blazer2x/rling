@@ -427,7 +427,7 @@ nevermind:
 
 	nl = (pb - pa) / es;
 	nr = (pd - pc) / es;
-	DLOG("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
+	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
 	/* Now try to launch subthreads. */
 	if (nl > c->forkelem && nr > c->forkelem &&
@@ -438,13 +438,13 @@ nevermind:
 		verify(pthread_cond_signal(&qs2->cond_st));
 		verify(pthread_mutex_unlock(&qs2->mtx_st));
 	} else if (nl > 0) {
-		DLOG("%10x n=%-10d Left will be done in-house.\n", id, n);
+		printf("%10x n=%-10d Left will be done in-house.\n", id, n);
 		qs->a = a;
 		qs->n = nl;
 		qsort_algo(qs);
 	}
 	if (nr > 0) {
-		DLOG("%10x n=%-10d Right will be done in-house.\n", id, n);
+		printf("%10x n=%-10d Right will be done in-house.\n", id, n);
 		a = pn - nr * es;
 		n = nr;
 		goto top;
