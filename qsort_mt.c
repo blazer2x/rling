@@ -198,9 +198,10 @@ static struct qsort *qsort_launch(struct qsort *qs);
 
 /* The multithreaded qsort public interface */
 void
-qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, int maxthreads, int forkelem)
+qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, size_t maxthreads, size_t forkelem)
 {
-	printf("Press Any Key to Continue\n");
+
+	printf("Press Any Key to Continue threads \n");
 getchar();
 	int ncpu;
 	struct qsort *qs;
