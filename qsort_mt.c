@@ -413,6 +413,7 @@ top:
 	vecswap(pb, pn - r, r);
 
 	if (swap_cnt == 0) { /* Switch to insertion sort */
+		printf("at insert\n")
 		r = 1 + n / 4;
 		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 			for (pl = pm;
@@ -446,9 +447,10 @@ nevermind:
 	}
 	if (nr > 0) {
 		printf("%10x n=%-10d Right will be done in-house.\n", id, n);
-		qs->a = pn - nr * es;
-		qs->n = nr;
-		qsort_algo(qs);
+		a = pn - nr * es;
+		n = nr;
+		goto top;
+
 	}
 }
 
