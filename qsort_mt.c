@@ -407,20 +407,20 @@ top:
 	}
 
 	pn = (char *)a + n * es;
-	r = min(pa - (char *)a, pb - pa);
+	nr = min(pa - (char *)a, pb - pa);
 	vecswap(a, pb - r, r);
-	r = min(pd - pc, pn - pd - es);
+	nr = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - r, r);
 
 	if (swap_cnt == 0) { /* Switch to insertion sort */
 		printf("at insert\n");
-		r = 1 + n / 4;
+		nr = 1 + n / 4;
 		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 			for (pl = pm;
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
-				if (++swap_cnt > r) goto nevermind;
+				if (++swap_cnt > nr) goto nevermind;
 			}
 			puts("done");
 		return;
