@@ -268,7 +268,7 @@ qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, int maxthreads, int forkelem)
 	c.idlethreads--;
 	verify(pthread_cond_signal(&qs->cond_st));
 	verify(pthread_mutex_unlock(&qs->mtx_st));
-puts("waiting to finish");
+puts("waiting to finish")
 	/*
 	 * Wait for all threads to finish, and
 	 * free acquired resources.
@@ -425,24 +425,24 @@ nevermind:
 
 	nl = (pb - pa) / es;
 	nr = (pd - pc) / es;
-	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
+	DLOG("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
 	/* Now try to launch subthreads. */
 	if (nl > c->forkelem && nr > c->forkelem &&
 	    (qs2 = allocate_thread(c)) != NULL) {
-		printf("%10x n=%-10d Left farmed out to %x.\n", id, n, qs2->id);
+		DLOG("%10x n=%-10d Left farmed out to %x.\n", id, n, qs2->id);
 		qs2->a = a;
 		qs2->n = nl;
 		verify(pthread_cond_signal(&qs2->cond_st));
 		verify(pthread_mutex_unlock(&qs2->mtx_st));
 	} else if (nl > 0) {
-		printf("%10x n=%-10d Left will be done in-house.\n", id, n);
+		DLOG("%10x n=%-10d Left will be done in-house.\n", id, n);
 		qs->a = a;
 		qs->n = nl;
 		qsort_algo(qs);
 	}
 	if (nr > 0) {
-		printf("%10x n=%-10d Right will be done in-house.\n", id, n);
+		DLOG("%10x n=%-10d Right will be done in-house.\n", id, n);
 		a = pn - nr * es;
 		n = nr;
 		goto top;
@@ -463,13 +463,13 @@ qsort_thread(void *p)
 	c = qs->common;
 again:
 	/* Wait for work to be allocated. */
-	printf("%10x n=%-10d Thread waiting for work.\n", id, 0);
+	DLOG("%10x n=%-10d Thread waiting for work.\n", id, 0);
 	verify(pthread_mutex_lock(&qs->mtx_st));
 	while (qs->st == ts_idle)
 		verify(pthread_cond_wait(&qs->cond_st, &qs->mtx_st));
 	verify(pthread_mutex_unlock(&qs->mtx_st));
 	if (qs->st == ts_term) {
-		printf("%10x n=%-10d Thread signalled to exit.\n", id, 0);
+		DLOG("%10x n=%-10d Thread signalled to exit.\n", id, 0);
 		return(NULL);
 	}
 	assert(qs->st == ts_work);
@@ -479,9 +479,9 @@ again:
 	verify(pthread_mutex_lock(&c->mtx_al));
 	qs->st = ts_idle;
 	c->idlethreads++;
-	printf("%10x n=%-10d Finished idlethreads=%d.\n", id, 0, c->idlethreads);
+	DLOG("%10x n=%-10d Finished idlethreads=%d.\n", id, 0, c->idlethreads);
 	if (c->idlethreads == c->nthreads) {
-		printf("%10x n=%-10d All threads idle, signalling shutdown.\n", id, 0);
+		DLOG("%10x n=%-10d All threads idle, signalling shutdown.\n", id, 0);
 		for (i = 0; i < c->nthreads; i++) {
 			qs2 = &c->pool[i];
 			if (qs2 == qs)
@@ -491,7 +491,7 @@ again:
 			verify(pthread_cond_signal(&qs2->cond_st));
 			verify(pthread_mutex_unlock(&qs2->mtx_st));
 		}
-		printf("%10x n=%-10d Shutdown signalling complete.\n", id, 0);
+		DLOG("%10x n=%-10d Shutdown signalling complete.\n", id, 0);
 		verify(pthread_mutex_unlock(&c->mtx_al));
 		return(NULL);
 	}
