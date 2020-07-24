@@ -4,8 +4,8 @@
 #for rling
 #ensure you have package libdb-dev installed
 
-#COPTS=-DPOWERPC -maltivec
-COPTS=-DINTEL
+COPTS=-DPOWERPC -maltivec
+#COPTS=-DINTEL
 #COPTS=-DPOWERPC -DAIX -maltivec -maix64
 
 all: rling
