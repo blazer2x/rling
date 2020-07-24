@@ -2563,6 +2563,7 @@ errexit:
 		if (ProcMode == 4) {
 		    fprintf(stderr,"\rFrequency:      ");fflush(stderr);
 		    forkelem = 65536; if (forkelem > Line) forkelem = Line /2; if (forkelem < 1024) forkelem= 1024;
+        getchar();
 		    qsort_mt(Freq,Line,sizeof(struct Freq),comp5,Maxt,forkelem);
 		}
 	    }
@@ -2691,6 +2692,7 @@ errexit:
     if (ProcMode == 0 && SortOut) {
 	fprintf(stderr,"Final sort ");fflush(stdout);
 	forkelem = 65536; if (forkelem > Line) forkelem = Line /2; if (forkelem < 1024) forkelem= 1024;
+  getchar();
 	qsort_mt(Sortlist,Line,sizeof(char **),comp1,Maxt,forkelem);
 	current_utc_time(&curtime);
 	wtime = (double) curtime.tv_sec + (double) (curtime.tv_nsec) / 1000000000.0;

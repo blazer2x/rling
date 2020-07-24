@@ -57,7 +57,7 @@ __FBSDID("$FreeBSD: src/lib/libc/stdlib/qsort.c,v 1.12 2002/09/10 02:04:49 wollm
  * mutex.  Other errors (e.g. unavailable resources)
  * are always checked and acted upon.
  */
-#define DEBUG_API 0
+#define DEBUG_API 1
 
 /*
  * Defining the followin macro will print on stderr the results
