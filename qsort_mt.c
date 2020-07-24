@@ -415,13 +415,15 @@ top:
 	if (swap_cnt == 0) { /* Switch to insertion sort */
 		printf("at insert\n");
 		r = 1 + n / 4;
+		puts("start");
 		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 			for (pl = pm;
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
-				//if (++swap_cnt > r) goto nevermind;
+				if (++swap_cnt > r) goto nevermind;
 			}
+			puts("done");
 		return;
 	}
 
