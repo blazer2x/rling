@@ -2563,7 +2563,7 @@ errexit:
 		if (ProcMode == 4) {
 		    fprintf(stderr,"\rFrequency:      ");fflush(stderr);
 		    forkelem = 65536; if (forkelem > Line) forkelem = Line /2; if (forkelem < 1024) forkelem= 1024;
-		    qsort(Freq,Line,sizeof(struct Freq),comp5);
+		    qsort_mt(Freq,Line,sizeof(struct Freq),comp5,Maxt,forkelem);
 		}
 	    }
 
