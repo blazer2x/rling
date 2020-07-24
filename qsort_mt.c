@@ -268,7 +268,7 @@ qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, int maxthreads, int forkelem)
 	c.idlethreads--;
 	verify(pthread_cond_signal(&qs->cond_st));
 	verify(pthread_mutex_unlock(&qs->mtx_st));
-puts("waiting to finish")
+
 	/*
 	 * Wait for all threads to finish, and
 	 * free acquired resources.
