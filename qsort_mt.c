@@ -419,7 +419,7 @@ top:
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
-				//if (++swap_cnt > r) goto nevermind;
+				if (++swap_cnt > r) goto nevermind;
 			}
 		return;
 	}
@@ -446,9 +446,9 @@ nevermind:
 	}
 	if (nr > 0) {
 		printf("%10x n=%-10d Right will be done in-house.\n", id, n);
-		a = pn - nr * es;
-		n = nr;
-		goto top;
+		qs->a = pn - nr * es;
+		qs->n = nr;
+		qsort_algo(qs);
 	}
 }
 
