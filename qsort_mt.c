@@ -408,19 +408,19 @@ top:
 
 	pn = (char *)a + n * es;
 	nr = min(pa - (char *)a, pb - pa);
-	vecswap(a, pb - nr, nr);
+	vecswap(a, pb - r, r);
 	nr = min(pd - pc, pn - pd - es);
-	vecswap(pb, pn - nr, nr);
+	vecswap(pb, pn - r, r);
 
 	if (swap_cnt == 0) { /* Switch to insertion sort */
 		printf("at insert\n");
-		nr = 1 + n / 4;
+		r = 1 + n / 4;
 		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 			for (pl = pm;
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
-				if (++swap_cnt > nr) goto nevermind;
+				if (++swap_cnt > r) goto nevermind;
 			}
 			puts("done");
 		return;
