@@ -420,7 +420,7 @@ top:
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
-				if (++swap_cnt > r) goto nevermind;
+				//if (++swap_cnt > r) goto nevermind;
 			}
 		return;
 	}
