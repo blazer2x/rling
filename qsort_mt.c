@@ -330,7 +330,7 @@ static void
 qsort_algo(struct qsort *qs)
 {
 	char *pa, *pb, *pc, *pd, *pl, *pm, *pn;
-	long d, r, swaptype, swap_cnt;
+	long d, swaptype, swap_cnt;
 	void *a;			/* Array of elements. */
 	size_t n, es;			/* Number of elements; size. */
 	cmp_t *cmp;
@@ -408,19 +408,19 @@ top:
 
 	pn = (char *)a + n * es;
 	nr = min(pa - (char *)a, pb - pa);
-	vecswap(a, pb - r, r);
+	vecswap(a, pb - nr, nr);
 	nr = min(pd - pc, pn - pd - es);
-	vecswap(pb, pn - r, r);
+	vecswap(pb, pn - nr, nr);
 
 	if (swap_cnt == 0) { /* Switch to insertion sort */
 		printf("at insert\n");
-		r = 1 + n / 4;
+		nr = 1 + n / 4;
 		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 			for (pl = pm;
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
-				if (++swap_cnt > r) goto nevermind;
+				if (++swap_cnt > nr) goto nevermind;
 			}
 			puts("done");
 		return;
