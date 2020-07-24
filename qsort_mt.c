@@ -408,9 +408,9 @@ top:
 
 	pn = (char *)a + n * es;
 	nr = min(pa - (char *)a, pb - pa);
-	vecswap(a, pb - r, r);
+	vecswap(a, pb - nr, nr);
 	nr = min(pd - pc, pn - pd - es);
-	vecswap(pb, pn - r, r);
+	vecswap(pb, pn - nr, nr);
 
 	if (swap_cnt == 0) { /* Switch to insertion sort */
 		printf("at insert\n");
