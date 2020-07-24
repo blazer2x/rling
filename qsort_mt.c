@@ -415,7 +415,6 @@ top:
 	if (swap_cnt == 0) { /* Switch to insertion sort */
 		printf("at insert\n");
 		r = 1 + n / 4;
-		puts("start");
 		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 			for (pl = pm;
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
@@ -450,10 +449,8 @@ nevermind:
 	}
 	if (nr > 0) {
 		printf("%10x n=%-10d Right will be done in-house.\n", id, n);
-		//a = pn - nr * es;
-		//n = nr;
-		a = pn - nr;
-		n = r / es;
+		a = pn - nr * es;
+		n = nr / es;
 		goto top;
 
 	}
