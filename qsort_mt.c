@@ -391,7 +391,7 @@ top:
 			pb += es;
 		}
 		while (pb <= pc && (nr = CMP(thunk, pc, a)) >= 0) {
-			if (r == 0) {
+			if (nr == 0) {
 				swap_cnt = 1;
 				swap(pc, pd);
 				pd -= es;
