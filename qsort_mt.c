@@ -429,6 +429,7 @@ nevermind:
 
 	nl = (pb - pa) / es;
 	nr = (pd - pc) / es;
+	printf("PA: %zu PB: %zu PC %zu PD %zu ES %zu\n",pa,pb,pc,pd,es)
 	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
 	/* Now try to launch subthreads. */
