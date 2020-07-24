@@ -57,7 +57,7 @@ __FBSDID("$FreeBSD: src/lib/libc/stdlib/qsort.c,v 1.12 2002/09/10 02:04:49 wollm
  * mutex.  Other errors (e.g. unavailable resources)
  * are always checked and acted upon.
  */
-#define DEBUG_API 1
+#define DEBUG_SORT 1
 
 /*
  * Defining the followin macro will print on stderr the results
@@ -200,6 +200,7 @@ static struct qsort *qsort_launch(struct qsort *qs);
 void
 qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, int maxthreads, int forkelem)
 {
+
 	int ncpu;
 	struct qsort *qs;
 	struct common c;
