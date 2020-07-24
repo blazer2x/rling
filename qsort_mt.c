@@ -382,7 +382,7 @@ top:
 
 	pc = pd = (char *)a + (n - 1) * es;
 	for (;;) {
-		while (pb <= pc && (r = CMP(thunk, pb, a)) <= 0) {
+		while (pb <= pc && (nr = CMP(thunk, pb, a)) <= 0) {
 			if (r == 0) {
 				swap_cnt = 1;
 				swap(pa, pb);
@@ -390,7 +390,7 @@ top:
 			}
 			pb += es;
 		}
-		while (pb <= pc && (r = CMP(thunk, pc, a)) >= 0) {
+		while (pb <= pc && (nr = CMP(thunk, pc, a)) >= 0) {
 			if (r == 0) {
 				swap_cnt = 1;
 				swap(pc, pd);
