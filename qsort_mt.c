@@ -450,10 +450,9 @@ nevermind:
 	}
 	if (nr > 0) {
 		printf("%10x n=%-10d Right will be done in-house.\n", id, n);
-		a = pn - nr * es;
+		a = pn - nr;
 		//n = nr;
-
-		n = r / es;
+		n = nr;
 		goto top;
 
 	}
