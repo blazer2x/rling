@@ -332,7 +332,7 @@ qsort_algo(struct qsort *qs)
 	void *a;			/* Array of elements. */
 	size_t n, es;			/* Number of elements; size. */
 	cmp_t *cmp;
-	long nl, nr, i;
+	size_t nl, nr, i;
 	struct common *c;
 	struct qsort *qs2;
 	pthread_t id;
