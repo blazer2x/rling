@@ -409,13 +409,14 @@ top:
 	vecswap(a, pb - r, r);
 	r = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - r, r);
-
 	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
-	if (nl > 0 && nr > 0)
+	if (nl > 0 || nr > 0)
 	{
+getchar();
+	}
 		if (swap_cnt == 0) { /* Switch to insertion sort */
-		getchar();
+		
 			r = 1 + n / 4;
 			for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 				for (pl = pm;
@@ -426,14 +427,14 @@ top:
 				}
 			return;
 		}
-	}
+	
 
 
 nevermind:
 
 	nl = (pb - pa) / es;
 	nr = (pd - pc) / es;
-	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
+	//printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
 	/* Now try to launch subthreads. */
 	if (nl > c->forkelem && nr > c->forkelem &&
