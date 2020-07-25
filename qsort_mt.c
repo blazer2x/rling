@@ -422,6 +422,7 @@ top:
 				     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 				     pl -= es) {
 					swap(pl, pl - es);
+					if (++swap_cnt > nr) goto nevermind;
 					opCount++;
 				}
 				printf("Opcount %zu\n",opCount);
