@@ -447,14 +447,9 @@ nevermind:
 		n = nr;
 
 		if (nl == 0)
-		{
 			qsort(a, n, es, cmp);
-		}
 		else
-		{
 			goto top;
-		}
-		
 	}
 }
 
