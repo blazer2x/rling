@@ -450,7 +450,11 @@ nevermind:
 		{
 			qsort(a, n, es, cmp);
 		}
-		goto top;
+		else
+		{
+			goto top;
+		}
+		
 	}
 }
 
