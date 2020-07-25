@@ -412,7 +412,7 @@ top:
 	nr = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - nr, nr);
 	size_t opCount = 0;
-	(if nr > 0 && nl >> 0)
+	(if nr > 0 && nl > 0)
 	{
 		if (swap_cnt == 0) { /* Switch to insertion sort */
 			printf("at insert with n %zu\n",n);
