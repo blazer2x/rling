@@ -399,17 +399,7 @@ top:
 	r = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - r, r);
 
-	if (swap_cnt == 0) { /* Switch to insertion sort */
-		r = 1 + n / 4;
 
-		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
-			for (pl = pm;pl > (char *)a && CMP(thunk, pl - es, pl) > 0; pl -= es) {
-
-				//swap(pl, pl - es);
-				//puts("here1");
-			}
-		return;
-	}
 
 nevermind:
 
