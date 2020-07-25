@@ -412,19 +412,23 @@ top:
 	nr = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - nr, nr);
 	size_t opCount = 0;
-	if (swap_cnt == 0) { /* Switch to insertion sort */
-		printf("at insert with n %zu\n",n);
-		nr = 1 + n / 4;
-		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
-			for (pl = pm;
-			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
-			     pl -= es) {
-				swap(pl, pl - es);
-				opCount++;
-			}
-			printf("Opcount %zu\n",opCount);
-		return;
+	(if nr > 0 && nl >> 0)
+	{
+		if (swap_cnt == 0) { /* Switch to insertion sort */
+			printf("at insert with n %zu\n",n);
+			nr = 1 + n / 4;
+			for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
+				for (pl = pm;
+				     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
+				     pl -= es) {
+					swap(pl, pl - es);
+					opCount++;
+				}
+				printf("Opcount %zu\n",opCount);
+			return;
+		}
 	}
+
 
 nevermind:
 
