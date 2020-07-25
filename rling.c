@@ -2499,7 +2499,7 @@ errexit:
 	    if (WorkUnitLine < LINELIMIT)
 		WorkUnitLine = LINELIMIT;
 	    forkelem = 65536; if (forkelem > Line) forkelem = Line /2; if (forkelem < 1024) forkelem= 1024;
-	    qsort(Sortlist,Line,sizeof(char **),comp1);
+	    qsort_mt(Sortlist,Line,sizeof(char **),comp1,Maxt,forkelem);
 
 	    current_utc_time(&curtime);
 	    wtime = (double) curtime.tv_sec + (double) (curtime.tv_nsec) / 1000000000.0;
@@ -2566,7 +2566,7 @@ errexit:
 		    forkelem = 65536; if (forkelem > Line) forkelem = Line /2; if (forkelem < 1024) forkelem= 1024;
         
 
-		    qsort(Freq,Line,sizeof(struct Freq),comp5);
+		    qsort_mt(Freq,Line,sizeof(struct Freq),comp5,Maxt,forkelem);
 		}
 	    }
 
