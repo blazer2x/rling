@@ -409,6 +409,8 @@ top:
 	r = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - r, r);
 
+	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
+	
 	if (nl > 0 && nr > 0)
 	{
 		if (swap_cnt == 0) { /* Switch to insertion sort */
