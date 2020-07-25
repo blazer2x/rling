@@ -410,7 +410,7 @@ top:
 	vecswap(pb, pn - r, r);
 
 	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
-	
+
 	if (nl > 0 && nr > 0)
 	{
 		if (swap_cnt == 0) { /* Switch to insertion sort */
@@ -442,13 +442,13 @@ nevermind:
 		verify(pthread_cond_signal(&qs2->cond_st));
 		verify(pthread_mutex_unlock(&qs2->mtx_st));
 	} else if (nl > 0) {
-		printf("%10x n=%-10d Left will be done in-house.\n", id, n);
+		//printf("%10x n=%-10d Left will be done in-house.\n", id, n);
 		qs->a = a;
 		qs->n = nl;
 		qsort_algo(qs);
 	}
 	if (nr > 0) {
-		printf("%10x n=%-10d Right will be done in-house.\n", id, n);
+		//printf("%10x n=%-10d Right will be done in-house.\n", id, n);
 		a = pn - nr * es;
 		n = nr;
 		goto top;
