@@ -420,9 +420,8 @@ top:
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
-				if (++swap_cnt > nr) goto nevermind;
 			}
-			puts("done");
+
 		return;
 	}
 
@@ -435,8 +434,7 @@ nevermind:
 
 	/* Now try to launch subthreads. */
 
-	if (nl > es)
-	{
+
 		if (nl > c->forkelem && nr > c->forkelem &&
 		    (qs2 = allocate_thread(c)) != NULL) {
 			DLOG("%10x n=%-10d Left farmed out to %x.\n", id, n, qs2->id);
@@ -450,9 +448,7 @@ nevermind:
 			qs->n = nl;
 			qsort_algo(qs);
 		}
-	}
-
-
+	
 		if (nr > 0) {
 			printf("%10x n=%-10d Right will be done in-house.\n", id, n);
 			a = pn - nr * es;
