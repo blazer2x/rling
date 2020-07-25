@@ -200,7 +200,7 @@ static struct qsort *qsort_launch(struct qsort *qs);
 void
 qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, int maxthreads, int forkelem)
 {
-	
+
 	int ncpu;
 	struct qsort *qs;
 	struct common c;
@@ -410,29 +410,12 @@ top:
 	r = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - r, r);
 
-	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
-
-	if (nl > 0 && nr > 0)
-	{
-		if (swap_cnt == 0) { /* Switch to insertion sort */
-			r = 1 + n / 4;
-			for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
-				for (pl = pm;
-				     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
-				     pl -= es) {
-					swap(pl, pl - es);
-					if (++swap_cnt > r) goto nevermind;
-				}
-			return;
-		}
-	}
-
 
 nevermind:
 
 	nl = (pb - pa) / es;
 	nr = (pd - pc) / es;
-	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
+	DLOG("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
 	/* Now try to launch subthreads. */
 	if (nl > c->forkelem && nr > c->forkelem &&
