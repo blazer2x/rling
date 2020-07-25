@@ -413,7 +413,10 @@ top:
 
 	if (nl > 0 || nr > 9000)
 	{
-getchar();
+		if (n > 9000)
+		{
+			getchar();
+		}
 	}
 		if (swap_cnt == 0) { /* Switch to insertion sort */
 		
