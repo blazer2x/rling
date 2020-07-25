@@ -413,7 +413,7 @@ top:
 	vecswap(pb, pn - nr, nr);
 	size_t opCount = 0;
 	if (swap_cnt == 0) { /* Switch to insertion sort */
-		printf("at insert\n");
+		printf("at insert with n %zu\n",n);
 		nr = 1 + n / 4;
 		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 			for (pl = pm;
