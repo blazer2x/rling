@@ -367,12 +367,7 @@ top:
 	if (n > 7) {
 		pl = (char *)a;
 		pn = (char *)a + (n - 1) * es;
-		if (n > 40) {
-			d = (n / 8) * es;
-			pl = med3(pl, pl + d, pl + 2 * d, cmp, thunk);
-			pm = med3(pm - d, pm, pm + d, cmp, thunk);
-			pn = med3(pn - 2 * d, pn - d, pn, cmp, thunk);
-		}
+
 		pm = med3(pl, pm, pn, cmp, thunk);
 	}
 	swap(a, pm);
