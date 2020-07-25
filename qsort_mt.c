@@ -374,7 +374,7 @@ top:
 			pn = med3(pn - 2 * d, pn - d, pn, cmp, thunk);
 		}
 		pm = med3(pl, pm, pn, cmp, thunk);
-		puts(pm);
+
 	}
 	swap(a, pm);
 	pa = pb = (char *)a + es;
@@ -436,7 +436,7 @@ nevermind:
 		//printf("%10x n=%-10d Right will be done in-house.\n", id, n);
 		a = pn - nr * es;
 		n = nr;
-		goto top;
+		qsort(a,n,es,cmp);
 	}
 }
 
