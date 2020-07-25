@@ -411,7 +411,7 @@ top:
 	vecswap(pb, pn - r, r);
 	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
-	if (nl > 0 || nr > 0)
+	if (nl > 0 || nr > 9000)
 	{
 getchar();
 	}
