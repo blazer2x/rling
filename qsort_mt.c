@@ -198,11 +198,8 @@ static struct qsort *qsort_launch(struct qsort *qs);
 
 /* The multithreaded qsort public interface */
 void
-qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, size_t maxthreads, size_t forkelem)
+qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, int maxthreads, int forkelem)
 {
-
-	printf("Press Any Key to Continue threads size %zu threads %zu fork %zu\n",n,maxthreads,forkelem);
-getchar();
 	int ncpu;
 	struct qsort *qs;
 	struct common c;
@@ -330,7 +327,7 @@ static void
 qsort_algo(struct qsort *qs)
 {
 	char *pa, *pb, *pc, *pd, *pl, *pm, *pn;
-	long d, swaptype, swap_cnt;
+	long d, r, swaptype, swap_cnt;
 	void *a;			/* Array of elements. */
 	size_t n, es;			/* Number of elements; size. */
 	cmp_t *cmp;
@@ -382,16 +379,16 @@ top:
 
 	pc = pd = (char *)a + (n - 1) * es;
 	for (;;) {
-		while (pb <= pc && (nr = CMP(thunk, pb, a)) <= 0) {
-			if (nr == 0) {
+		while (pb <= pc && (r = CMP(thunk, pb, a)) <= 0) {
+			if (r == 0) {
 				swap_cnt = 1;
 				swap(pa, pb);
 				pa += es;
 			}
 			pb += es;
 		}
-		while (pb <= pc && (nr = CMP(thunk, pc, a)) >= 0) {
-			if (nr == 0) {
+		while (pb <= pc && (r = CMP(thunk, pc, a)) >= 0) {
+			if (r == 0) {
 				swap_cnt = 1;
 				swap(pc, pd);
 				pd -= es;
@@ -407,25 +404,22 @@ top:
 	}
 
 	pn = (char *)a + n * es;
-	nr = min(pa - (char *)a, pb - pa);
-	vecswap(a, pb - nr, nr);
-	nr = min(pd - pc, pn - pd - es);
-	vecswap(pb, pn - nr, nr);
-	size_t opCount = 0;
-	(if nr > 0 && nl > 0)
+	r = min(pa - (char *)a, pb - pa);
+	vecswap(a, pb - r, r);
+	r = min(pd - pc, pn - pd - es);
+	vecswap(pb, pn - r, r);
+
+	if (nl > 0 && nr > 0)
 	{
 		if (swap_cnt == 0) { /* Switch to insertion sort */
-			printf("at insert with n %zu\n",n);
-			nr = 1 + n / 4;
+			r = 1 + n / 4;
 			for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 				for (pl = pm;
 				     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 				     pl -= es) {
 					swap(pl, pl - es);
-					if (++swap_cnt > nr) goto nevermind;
-					opCount++;
+					if (++swap_cnt > r) goto nevermind;
 				}
-				printf("Opcount %zu\n",opCount);
 			return;
 		}
 	}
@@ -435,34 +429,28 @@ nevermind:
 
 	nl = (pb - pa) / es;
 	nr = (pd - pc) / es;
-	printf("PA: %zu PB: %zu PC %zu PD %zu ES %zu\n",pa,pb,pc,pd,es);
-	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
+	DLOG("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
 	/* Now try to launch subthreads. */
-
-
-		if (nl > c->forkelem && nr > c->forkelem &&
-		    (qs2 = allocate_thread(c)) != NULL) {
-			DLOG("%10x n=%-10d Left farmed out to %x.\n", id, n, qs2->id);
-			qs2->a = a;
-			qs2->n = nl;
-			verify(pthread_cond_signal(&qs2->cond_st));
-			verify(pthread_mutex_unlock(&qs2->mtx_st));
-		} else if (nl > 0) {
-			printf("%10x n=%-10d Left will be done in-house.\n", id, n);
-			qs->a = a;
-			qs->n = nl;
-			qsort_algo(qs);
-		}
-	
-		if (nr > 0) {
-			printf("%10x n=%-10d Right will be done in-house.\n", id, n);
-			a = pn - nr * es;
-			n = nr;
-			goto top;
-		}	
-	
-
+	if (nl > c->forkelem && nr > c->forkelem &&
+	    (qs2 = allocate_thread(c)) != NULL) {
+		DLOG("%10x n=%-10d Left farmed out to %x.\n", id, n, qs2->id);
+		qs2->a = a;
+		qs2->n = nl;
+		verify(pthread_cond_signal(&qs2->cond_st));
+		verify(pthread_mutex_unlock(&qs2->mtx_st));
+	} else if (nl > 0) {
+		DLOG("%10x n=%-10d Left will be done in-house.\n", id, n);
+		qs->a = a;
+		qs->n = nl;
+		qsort_algo(qs);
+	}
+	if (nr > 0) {
+		DLOG("%10x n=%-10d Right will be done in-house.\n", id, n);
+		a = pn - r * es;
+		n = r;
+		goto top;
+	}
 }
 
 /* Thread-callable quicksort. */
