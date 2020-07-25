@@ -200,7 +200,6 @@ static struct qsort *qsort_launch(struct qsort *qs);
 void
 qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, int maxthreads, int forkelem)
 {
-
 	int ncpu;
 	struct qsort *qs;
 	struct common c;
@@ -374,7 +373,6 @@ top:
 			pn = med3(pn - 2 * d, pn - d, pn, cmp, thunk);
 		}
 		pm = med3(pl, pm, pn, cmp, thunk);
-
 	}
 	swap(a, pm);
 	pa = pb = (char *)a + es;
@@ -411,6 +409,17 @@ top:
 	r = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - r, r);
 
+	if (swap_cnt == 0) { /* Switch to insertion sort */
+		r = 1 + n / 4;
+		for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
+			for (pl = pm;
+			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
+			     pl -= es) {
+				swap(pl, pl - es);
+				if (++swap_cnt > r) goto nevermind;
+			}
+		return;
+	}
 
 nevermind:
 
@@ -427,16 +436,21 @@ nevermind:
 		verify(pthread_cond_signal(&qs2->cond_st));
 		verify(pthread_mutex_unlock(&qs2->mtx_st));
 	} else if (nl > 0) {
-		//printf("%10x n=%-10d Left will be done in-house.\n", id, n);
+		DLOG("%10x n=%-10d Left will be done in-house.\n", id, n);
 		qs->a = a;
 		qs->n = nl;
 		qsort_algo(qs);
 	}
 	if (nr > 0) {
-		//printf("%10x n=%-10d Right will be done in-house.\n", id, n);
+		DLOG("%10x n=%-10d Right will be done in-house.\n", id, n);
 		a = pn - nr * es;
 		n = nr;
-		qsort(a,n,es,cmp);
+
+		if (nl == 0)
+		{
+			qsort(a, n, es, cmp);
+		}
+		goto top;
 	}
 }
 
