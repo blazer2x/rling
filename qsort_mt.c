@@ -366,8 +366,8 @@ top:
 
 	swap(a, pm);
 	pa = pb = (char *)a + es;
-
 	pc = pd = (char *)a + (n - 1) * es;
+
 	for (;;) {
 		while (pb <= pc && (r = CMP(thunk, pb, a)) <= 0) {
 			if (r == 0) {
@@ -406,7 +406,7 @@ top:
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
-				if (++swap_cnt > r) goto nevermind;
+
 			}
 		return;
 	}
