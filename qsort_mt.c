@@ -425,7 +425,7 @@ nevermind:
 
 	nl = (pb - pa) / es;
 	nr = (pd - pc) / es;
-	DLOG("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
+	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
 	/* Now try to launch subthreads. */
 	if (nl > c->forkelem && nr > c->forkelem &&
