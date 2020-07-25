@@ -200,7 +200,7 @@ static struct qsort *qsort_launch(struct qsort *qs);
 void
 qsort_mt(void *a, size_t n, size_t es, cmp_t *cmp, int maxthreads, int forkelem)
 {
-	getch();
+	getchar();
 	int ncpu;
 	struct qsort *qs;
 	struct common c;
