@@ -411,7 +411,7 @@ top:
 	vecswap(a, pb - nr, nr);
 	nr = min(pd - pc, pn - pd - es);
 	vecswap(pb, pn - nr, nr);
-
+	size_t opCount = 0;
 	if (swap_cnt == 0) { /* Switch to insertion sort */
 		printf("at insert\n");
 		nr = 1 + n / 4;
@@ -420,8 +420,9 @@ top:
 			     pl > (char *)a && CMP(thunk, pl - es, pl) > 0;
 			     pl -= es) {
 				swap(pl, pl - es);
+				opCount++;
 			}
-
+			printf("Opcount %zu\n",opCount);
 		return;
 	}
 
