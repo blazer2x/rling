@@ -415,6 +415,7 @@ top:
 	if (nl > 0 && nr > 0)
 	{
 		if (swap_cnt == 0) { /* Switch to insertion sort */
+		getchar();
 			r = 1 + n / 4;
 			for (pm = (char *)a + es; pm < (char *)a + n * es; pm += es)
 				for (pl = pm;
