@@ -367,7 +367,7 @@ top:
 	swap(a, pm);
 	pa = pb = (char *)a + es;
 	pc = pd = (char *)a + (n - 1) * es;
-	printf("Preloop %zu %zu %zu %zu \n", pa, pb, pc, pd);
+	printf("Preloop %c %c %c %c \n", pa, pb, pc, pd);
 
 	for (;;) {
 		while (pb <= pc && (r = CMP(thunk, pb, a)) <= 0) {
