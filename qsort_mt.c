@@ -367,7 +367,6 @@ top:
 	swap(a, pm);
 	pa = pb = (char *)a + es;
 	pc = pd = (char *)a + (n - 1) * es;
-	printf("Preloop %zu %zu %zu %zu %zu \n",pm, pa, pb, pc, pd);
 
 	for (;;) {
 		while (pb <= pc && (r = CMP(thunk, pb, a)) <= 0) {
@@ -406,7 +405,7 @@ nevermind:
 
 	nl = (pb - pa) / es;
 	nr = (pd - pc) / es;
-	printf("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
+	DLOG("%10x n=%-10d Partitioning finished ln=%d rn=%d.\n", id, n, nl, nr);
 
 	/* Now try to launch subthreads. */
 	if (nl > c->forkelem && nr > c->forkelem &&
@@ -427,9 +426,7 @@ nevermind:
 		a = pn - nr * es;
 		n = nr;
 
-		if (nl == 0)
-			goto top;
-		else
+		if (nl != 0)
 			goto top;
 	}
 }
